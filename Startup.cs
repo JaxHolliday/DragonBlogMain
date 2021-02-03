@@ -1,19 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using DragonBlog.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DragonBlog.Models;
-using DragonBlog.Utilities;
 using Microsoft.AspNetCore.StaticFiles;
 using Npgsql;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -53,6 +47,13 @@ namespace DragonBlog
 
             services.AddScoped<ISlugService, SlugService>();
 
+            services.AddAuthentication()
+                .AddGitHub(options =>
+                {
+                    options.ClientId = "[3cada8f8cb55e7bf49ba]";
+                    options.ClientSecret = "[6bf0629f3a0ba73709e8d62f0a1f4f88eb8df15d]";
+                    options.AccessDeniedPath = "/AccessDeniedPathInfo";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,8 +91,7 @@ namespace DragonBlog
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-            });
-            
+            });            
         }
 
         public static string GetConnectionString(IConfiguration configuration)
