@@ -2,11 +2,6 @@
 @inject UserManager<BlogUser> userManager
 @inject SignInManager<BlogUser> SignInManager
 
-@{
-    var user = await userManager.GetUserAsync(User);
-    var username = user.FirstName;
-}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,20 +106,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item active">
-                                <a class="btn btn-outline-dark" href="/Identity/Account/Manage">
-                                    Hello @username!
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-dark" id="aLogout">
-                                    Logout
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <form class="form-inline" id="frmLogout" asp-page="/Account/Logout" asp-area="Identity" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})"></form>
-                            </li>
+                            <partial name="_LoginPartial" />
                         }
                         else
                         {
@@ -135,7 +117,7 @@
                                 <a class="btn btn-outline-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
                             </li>
                         }
-                    </ul>
+                    </ul>                    
                 </div>
             </div>
         </nav>
