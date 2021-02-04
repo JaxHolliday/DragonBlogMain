@@ -50,6 +50,19 @@ namespace DragonBlog.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [StringLength(50)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(50)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [StringLength(50)]
+            [Display(Name = "Display Name")]
+            public string DisplayName { get; set; }
+            [Required]
             [EmailAddress]
             public string Email { get; set; }
         }
