@@ -46,6 +46,10 @@ namespace DragonBlog
             services.AddTransient<IEmailSender, EmailService>();
 
             services.AddScoped<ISlugService, SlugService>();
+            services.AddTransient<IImageService, ImageService>();
+
+
+
 
             services.AddAuthentication()
                 .AddGitHub(options =>
@@ -54,13 +58,7 @@ namespace DragonBlog
                     options.ClientSecret = "[6bf0629f3a0ba73709e8d62f0a1f4f88eb8df15d]";
                     options.AccessDeniedPath = "/AccessDeniedPathInfo";
                 });
-            //services.AddAuthentication()
-            //    .AddFacebook(options =>
-            //    {
-            //        options.AppId = "[2868491520100993]";
-            //        options.AppSecret = "[3efa437c55ad00d337ad507eec9202ad]";
-            //        options.AccessDeniedPath = "/AccessDeniedPathInfo";
-            //    });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

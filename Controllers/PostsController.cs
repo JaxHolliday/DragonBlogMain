@@ -13,17 +13,19 @@ using DragonBlog.Utilities;
 using System.Reflection.PortableExecutable;
 using Microsoft.AspNetCore.Authorization;
 using PagedList;
-
+using DragonBlog.Services;
 
 namespace DragonBlog.Controllers
 {
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ImageService _imageService;
 
-        public PostsController(ApplicationDbContext context)
+        public PostsController(ApplicationDbContext context, ImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
         
@@ -113,6 +115,10 @@ namespace DragonBlog.Controllers
             if (ModelState.IsValid)
             {
                 post.Created = DateTime.Now;
+
+                //Image Service Created on: 2/5/21
+                //post.FileName = _imageService.RecordFileName(image);
+                //post.Image = await _imageService.EncodeFileAsync(image);
 
                 if(image != null)
                 {
