@@ -31,14 +31,14 @@ namespace DragonBlog.Controllers
             ViewBag.Search = searchStr;
             var blogList = IndexSearch(searchStr);
 
-            int pageSize = 5;// display three blog posts at a time on this page 
+            int pageSize = 5;// display five blog posts at a time on this page 
             int pageNumber = (page ?? 1);
 
 
             //var model = _context.Post.Include(p => p.Blog);
             //var listPosts = _context.Post.AsQueryable(); 
             //return View(listPosts.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
-            return View(blogList.ToPagedList(pageNumber, pageSize));
+            return View(blogList.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
         }
 
         public IQueryable<Post> IndexSearch(string searchStr)
